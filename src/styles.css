@@ -1,0 +1,38 @@
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 16px; 
+  justify-content: center; 
+}
+
+
+.card {
+  width: 200px;   /* Buraların cssini bizim product cardlardan çaldım */
+  border: 1px solid #ddd; 
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  overflow: hidden;
+ 
+}
+
+
+.card img {
+  width: 100%; 
+  height: auto;
+}
+
+
+.card-title {
+  padding: 16px;
+  background-color: #f8f8f8;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+.product-price {
+  padding: 0 16px 16px 16px;
+  color: #888;
+  font-size: 16px;
+}

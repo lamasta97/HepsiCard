@@ -1,45 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import './Styles.css';
-
-
+import './styles.css';
 
 const ProductList = () => {
-  const [imageUrl, setImageUrl] = useState(''); // use state bileşenini resim urlsini saklamak için kullanmam lazımdı axios url sıkıntı yaşayabiliyor hafif chatten yardım aldım yine
-  // Dayanamadım chat gpt olmadan :D 
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // API olarak picsum kullandım chate sordum dedim ki sadece random resim geenrator api öner 
-    const fetchImage = async () => {
+    const fetchProducts = async () => {
       try {
-        const response = await axios.get('https://picsum.photos/200/300'); // Axios kullan demiştin burda get methodu kullandım
-        
-        setImageUrl(response.request.responseURL);
+        const response = await axios.get('https://dummyjson.com/products');
+        setProducts(response.data.products);
       } catch (error) {
-        console.error('Resim alınırken bir hata oluştu:', error);
+        console.error('Ürünler alınırken bir hata oluştu:', error);
       }
     };
 
-    fetchImage();
+    fetchProducts();
   }, []);
 
-  return (  // Buraları tamamen kendim yazdım zaten taskı yaparken de başlamıştım 
-    <section className='card'>
-      <div className='card-image'>
-        {imageUrl ? (
-          <img src={imageUrl} alt='Random' />
-        ) : (
-          'Loading...'
-        )}
-        <div className='card-title'>
-          Apple iPhone 15 Pro Max 256 Gb
-          <div className='product-price'>
-            78.749 TL
+  return (
+    <div className="product-list">
+      {products.map((product) => (
+        <section key={product.id} className="card">
+          <div className="card-image">
+            {product.images && product.images.length > 0 ? (
+              <img src={product.images[0]} alt={product.title} />
+            ) : (
+              'Loading...'
+            )}
           </div>
-        </div>
-      </div>
-    </section>
+          <div className="card-title">
+            {product.title}
+            <div className="product-price">
+              {product.price} TL
+            </div>
+          </div>
+        </section>
+      ))}
+    </div>
   );
 };
 
